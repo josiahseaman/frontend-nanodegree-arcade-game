@@ -35,9 +35,6 @@ var Enemy = function() {
 // Parameter: dt, a time delta between ticks
 // Called from Engine.updateEntities
 Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
     this.x += dt * this.speed;
     if(this.x > numCols * col_width || this.x < -50){
         Enemy.call(this);
@@ -59,12 +56,15 @@ var Player = function(){
 Player.prototype = Object.create(Enemy.prototype);
 Player.prototype.constructor = Player;
 
+/* Player position resets to bottom center every time. */
 Player.prototype.reset = function(){
-    console.log("Player reset");
     this.x = Math.floor(numCols/2) * col_width;
     this.y = (numRows-1) * row_height;
 }
 
+/*Update does all the collision detection with Enemies.
+* If there was a second category to collide with, I'd break it
+* into more methods.*/
 Player.prototype.update = function(dt){
     for(var i = 0; i < allEnemies.length; i++){
         var enemy = allEnemies[i];
@@ -89,7 +89,7 @@ Player.prototype.handleInput = function(directionString){
     }
     var oldX = this.x;
     var oldY = this.y;
-    var actions = {
+    var actions = {//this looks cleaner to me than a series of if statements
         'left': function(player){player.x -= col_width},
         'up': function(player){player.y -= row_height},
         'right': function(player){player.x += col_width},
