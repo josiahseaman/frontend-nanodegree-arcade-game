@@ -18,10 +18,10 @@ function getRandomInt(min, max) {
 // Enemies our player must avoid
 var Enemy = function() {
     this.x = -50; //TODO: random initialization on start
-    this.y = getRandomInt(1,numRows-3) * row_height;
-    var backwards = getRandomInt(0,1) === 0;
+    this.y = getRandomInt(1, numRows - 3) * row_height;
+    var backwards = getRandomInt(0, 1) === 0;
     this.speed = Math.random() * 100.0 + 100.0;
-    if(backwards){
+    if (backwards) {
         this.speed *= -1;
         this.x += col_width * numCols;
     }
@@ -36,7 +36,7 @@ var Enemy = function() {
 // Called from Engine.updateEntities
 Enemy.prototype.update = function(dt) {
     this.x += dt * this.speed;
-    if(this.x > numCols * col_width || this.x < -50){
+    if (this.x > numCols * col_width || this.x < -50) {
         Enemy.call(this);
     }
 };
@@ -48,7 +48,7 @@ Enemy.prototype.render = function() {
 
 
 //The Single player character inherits Mob properties from Enemy
-var Player = function(){
+var Player = function() {
     Enemy.call(this);
     this.reset();
     this.sprite = 'images/char-cat-girl.png'; //used by render()
@@ -57,25 +57,25 @@ Player.prototype = Object.create(Enemy.prototype);
 Player.prototype.constructor = Player;
 
 /* Player position resets to bottom center every time. */
-Player.prototype.reset = function(){
-    this.x = Math.floor(numCols/2) * col_width;
-    this.y = (numRows-1) * row_height;
+Player.prototype.reset = function() {
+    this.x = Math.floor(numCols / 2) * col_width;
+    this.y = (numRows - 1) * row_height;
 };
 
 /*Update does all the collision detection with Enemies.
-* If there was a second category to collide with, I'd break it
-* into more methods.*/
-Player.prototype.update = function(dt){
-    for(var i = 0; i < allEnemies.length; i++){
+ * If there was a second category to collide with, I'd break it
+ * into more methods.*/
+Player.prototype.update = function(dt) {
+    for (var i = 0; i < allEnemies.length; i++) {
         var enemy = allEnemies[i];
         //players torso is 32px across.  Both images are 101px but the bug fills the whole width
         var myCenter = this.x + col_width / 2.0;
-        if(this.y == enemy.y && 
-           myCenter+16 > enemy.x &&
-           myCenter-16 < enemy.x + col_width){
+        if (this.y == enemy.y &&
+            myCenter + 16 > enemy.x &&
+            myCenter - 16 < enemy.x + col_width) {
             this.reset();
-        }//this was tested at very slow speed and it looks just right for the torso
-        
+        } //this was tested at very slow speed and it looks just right for the torso
+
     }
 };
 
@@ -83,8 +83,8 @@ Player.prototype.update = function(dt){
 //I don't need a custom render because Enemy.render references
 //the class variable 'sprite' which is set in the constructor
 
-Player.prototype.handleInput = function(directionString){
-    if(typeof directionString === 'undefined'){
+Player.prototype.handleInput = function(directionString) {
+    if (typeof directionString === 'undefined') {
         return;
     }
     var oldX = this.x;
@@ -95,12 +95,12 @@ Player.prototype.handleInput = function(directionString){
         'right': function(player){player.x += col_width;},
         'down': function(player){player.y += row_height;}
     };
-    actions[directionString](this);//call the appropriate action
+    actions[directionString](this); //call the appropriate action
     //if anything puts it offscreen, reset the action
-    if(0 > this.x || this.x >= col_width * numCols){
+    if (0 > this.x || this.x >= col_width * numCols) {
         this.x = oldX;
     }
-    if(0 > this.y || this.y >= row_height * numRows){
+    if (0 > this.y || this.y >= row_height * numRows) {
         this.y = oldY;
     }
 
@@ -109,7 +109,7 @@ Player.prototype.handleInput = function(directionString){
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [];
-for(var i = 0; i < numCols * numRows / 4; i++){
+for (var i = 0; i < numCols * numRows / 4; i++) {
     allEnemies.push(new Enemy());
 }
 // Place the player object in a variable called player

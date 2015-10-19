@@ -24,8 +24,8 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         lastTime;
 
-    canvas.width = numCols * col_width;//no longer hard coded
-    canvas.height = (numRows+1) * row_height;
+    canvas.width = numCols * col_width; //no longer hard coded
+    canvas.height = (numRows + 1) * row_height;
     doc.body.appendChild(canvas);
 
     /* This function serves as the kickoff point for the game loop itself
@@ -104,14 +104,14 @@ var Engine = (function(global) {
         /* This array holds the relative URL to the image used
          * for that particular row of the game level.
          */
-        var rowImages = ['images/water-block.png'],   // Top row is water
+        var rowImages = ['images/water-block.png'], // Top row is water
             row, col;
-        for(var i = 0; i < numRows - 3; i++){//add any number of road rows
+        for (var i = 0; i < numRows - 3; i++) { //add any number of road rows
             rowImages.push('images/stone-block.png');
         }
-        rowImages = rowImages.concat(['images/grass-block.png','images/grass-block.png']);//2 rows of grass
+        rowImages = rowImages.concat(['images/grass-block.png', 'images/grass-block.png']); //2 rows of grass
         ctx.fillStyle = "white";
-        ctx.fillRect(0, 0, col_width*numCols, row_height*numRows);
+        ctx.fillRect(0, 0, col_width * numCols, row_height * numRows);
 
         /* Loop through the number of rows and columns we've defined above
          * and, using the rowImages array, draw the correct image for that
