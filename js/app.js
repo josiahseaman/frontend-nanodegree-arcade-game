@@ -4,7 +4,7 @@
 //want them globally defined.
 col_width = 101;
 row_height = 83;
-numRows = 8;
+numRows = 8; //TODO: detect device window and adjust game
 numCols = 12;
 
 
@@ -19,7 +19,7 @@ function getRandomInt(min, max) {
 var Enemy = function() {
     this.x = -50; //TODO: random initialization on start
     this.y = getRandomInt(1,numRows-3) * row_height;
-    var backwards = getRandomInt(0,1) == 0;
+    var backwards = getRandomInt(0,1) === 0;
     this.speed = Math.random() * 100.0 + 100.0;
     if(backwards){
         this.speed *= -1;
@@ -60,7 +60,7 @@ Player.prototype.constructor = Player;
 Player.prototype.reset = function(){
     this.x = Math.floor(numCols/2) * col_width;
     this.y = (numRows-1) * row_height;
-}
+};
 
 /*Update does all the collision detection with Enemies.
 * If there was a second category to collide with, I'd break it
@@ -70,9 +70,9 @@ Player.prototype.update = function(dt){
         var enemy = allEnemies[i];
         //players torso is 32px across.  Both images are 101px but the bug fills the whole width
         var myCenter = this.x + col_width / 2.0;
-        if(this.y == enemy.y 
-                && myCenter+16 > enemy.x 
-                && myCenter-16 < enemy.x + col_width){
+        if(this.y == enemy.y && 
+           myCenter+16 > enemy.x &&
+           myCenter-16 < enemy.x + col_width){
             this.reset();
         }//this was tested at very slow speed and it looks just right for the torso
         
@@ -90,10 +90,10 @@ Player.prototype.handleInput = function(directionString){
     var oldX = this.x;
     var oldY = this.y;
     var actions = {//this looks cleaner to me than a series of if statements
-        'left': function(player){player.x -= col_width},
-        'up': function(player){player.y -= row_height},
-        'right': function(player){player.x += col_width},
-        'down': function(player){player.y += row_height}
+        'left': function(player){player.x -= col_width;},
+        'up': function(player){player.y -= row_height;},
+        'right': function(player){player.x += col_width;},
+        'down': function(player){player.y += row_height;}
     };
     actions[directionString](this);//call the appropriate action
     //if anything puts it offscreen, reset the action
