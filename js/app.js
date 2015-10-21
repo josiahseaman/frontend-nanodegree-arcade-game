@@ -52,14 +52,14 @@ Enemy.prototype.render = function() {
 var Player = function(icon) {
     Enemy.call(this);
     this.reset();
-    if(typeof icon === 'undefined'){
+    if (typeof icon === 'undefined') {
         var icons = ['images/char-boy.png',
             'images/char-horn-girl.png',
             'images/char-pink-girl.png',
             'images/char-princess-girl.png'
         ];
         this.sprite = icons[getRandomInt(0, icons.length - 1)];
-    }else{
+    } else {
         this.sprite = icon; //used by render()
     }
 };
@@ -77,7 +77,7 @@ Player.prototype.reset = function() {
  * If there was a second category to collide with, I'd break it
  * into more methods.*/
 Player.prototype.collidesWithEnemy = function(enemy) {
-//players torso is 32px across.  Both images are 101px but the bug fills the whole width
+    //players torso is 32px across.  Both images are 101px but the bug fills the whole width
     var myCenter = this.x + COL_WIDTH / 2.0;
     if (this.y == enemy.y &&
         myCenter + 16 > enemy.x &&
@@ -131,7 +131,7 @@ for (var i = 0; i < NUM_COLS * NUM_ROWS / 10; i++) {
 // Place the player object in a variable called player
 var player0 = new Player('images/char-cat-girl.png');
 var snake = [player0];
-for(var i = 0; i < 5; ++i){
+for (var i = 0; i < 5; ++i) {
     snake.push(new Player());
 }
 
@@ -145,10 +145,10 @@ document.addEventListener('keydown', function(e) {
         40: 'down'
     };
     /* This single incremental delay in the controls is what creates the trailing
-    * after image of friends.  I've been playing Braid and thinking about caching
-    * input and events.  I like time effects.
-    * */
-    snake.forEach(function (player, index) {
+     * after image of friends.  I've been playing Braid and thinking about caching
+     * input and events.  I like time effects.
+     * */
+    snake.forEach(function(player, index) {
         setTimeout(function() {
             player.handleInput(allowedKeys[e.keyCode]);
         }, index * 200); //increasing the delay through the list of player objects

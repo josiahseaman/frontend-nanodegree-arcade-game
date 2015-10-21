@@ -92,9 +92,9 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        snake.forEach(function (player){
+        snake.forEach(function(player) {
             player.update();
-        })
+        });
     }
 
     /* This function initially draws the "game level", it will then call
@@ -133,13 +133,15 @@ var Engine = (function(global) {
             }
         }
         renderEntities();
-        if(snake.every(function(element,index,array){return element.reachedTheEnd})){ // reached the top, the first time
+        if (snake.every(function(element, index, array) {
+                return element.reachedTheEnd;
+            })) { // reached the top, the first time
             displayWinState();
         }
     }
 
     /*  Modified from W3 example: http://www.w3schools.com/tags/canvas_filltext.asp
-    * */
+     * */
     function displayWinState() {
         ctx.font = "120px Impact";
         ctx.textAlign = 'center';
@@ -160,8 +162,8 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
-        snake.reverse().forEach(function(player){
-            player.render();//reverse order for y stacking
+        snake.reverse().forEach(function(player) {
+            player.render(); //reverse order for y stacking
         });
         snake.reverse();
     }
