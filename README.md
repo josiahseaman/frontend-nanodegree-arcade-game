@@ -9,3 +9,4 @@ Push to gh-pages branch then navigate to http://<github_username>.github.io/<rep
 My version is available at: http://josiahseaman.github.io/frontend-nanodegree-arcade-game/
 
 Your Herd of Friends is controlled with the arrow keys.
+Goal: Get all of your Friends to the other side.
