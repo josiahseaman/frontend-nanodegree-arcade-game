@@ -2,11 +2,11 @@
 //the entire play area.  Both engine.js and app.js use
 //these variables and this is a rare case where I
 //want them globally defined.
-'use strict';
-this.COL_WIDTH = 101;
-this.ROW_HEIGHT = 83;
-this.NUM_ROWS = 8; //TODO: detect device window and adjust game
-this.NUM_COLS = 12;
+//'use strict';
+window.COL_WIDTH = 101;
+window.ROW_HEIGHT = 83;
+window.NUM_ROWS = 8; //TODO: detect device window and adjust game
+window.NUM_COLS = 12;
 
 
 /** Returns a random integer between min (inclusive) and max (inclusive)
@@ -121,16 +121,6 @@ Player.prototype.handleInput = function(directionString) {
     }
 
 };
-
-/*  Modified from W3 example: http://www.w3schools.com/tags/canvas_filltext.asp
-* */
-function displayWinState() {
-    ctx.font = "120px Impact";
-    ctx.textAlign = 'center';
-    ctx.fillStyle = 'black'; //drop shadow
-    ctx.fillText("You're A Winner!", NUM_COLS * COL_WIDTH / 2 + 4, ROW_HEIGHT * 3 + 4);
-    ctx.fillStyle = 'white';
-    ctx.fillText("You're A Winner!", NUM_COLS * COL_WIDTH / 2, ROW_HEIGHT * 3);}
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies

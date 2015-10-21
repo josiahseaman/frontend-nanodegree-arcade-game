@@ -6,3 +6,5 @@ in a context where static files will be served.
 
 Example: GitHub Hosting:
 Push to gh-pages branch then navigate to http://<github_username>.github.io/<repo_name>/
+
+Your Herd of Friends is controlled with the arrow keys.

@@ -1,4 +1,4 @@
-'use strict';
+//'use strict';
 /* Engine.js
  * This file provides the game loop functionality (update entities and render),
  * draws the initial game board on the screen, and then calls the update and
@@ -138,6 +138,17 @@ var Engine = (function(global) {
         }
     }
 
+    /*  Modified from W3 example: http://www.w3schools.com/tags/canvas_filltext.asp
+    * */
+    function displayWinState() {
+        ctx.font = "120px Impact";
+        ctx.textAlign = 'center';
+        ctx.fillStyle = 'black'; //drop shadow
+        ctx.fillText("You're A Winner!", NUM_COLS * COL_WIDTH / 2 + 4, ROW_HEIGHT * 3 + 4);
+        ctx.fillStyle = 'white';
+        ctx.fillText("You're A Winner!", NUM_COLS * COL_WIDTH / 2, ROW_HEIGHT * 3);
+    }
+
     /* This function is called by the render function and is called on each game
      * tick. It's purpose is to then call the render functions you have defined
      * on your enemy and player entities within app.js
@@ -151,7 +162,7 @@ var Engine = (function(global) {
         });
         snake.reverse().forEach(function(player){
             player.render();//reverse order for y stacking
-        })
+        });
         snake.reverse();
     }
 
