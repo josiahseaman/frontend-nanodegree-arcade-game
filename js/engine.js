@@ -1,3 +1,4 @@
+'use strict';
 /* Engine.js
  * This file provides the game loop functionality (update entities and render),
  * draws the initial game board on the screen, and then calls the update and
@@ -24,8 +25,8 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         lastTime;
 
-    canvas.width = numCols * col_width; //no longer hard coded
-    canvas.height = (numRows + 1) * row_height;
+    canvas.width = NUM_COLS * COL_WIDTH; //no longer hard coded
+    canvas.height = (NUM_ROWS + 1) * ROW_HEIGHT;
     doc.body.appendChild(canvas);
 
     /* This function serves as the kickoff point for the game loop itself
@@ -106,19 +107,19 @@ var Engine = (function(global) {
          */
         var rowImages = ['images/water-block.png'], // Top row is water
             row, col;
-        for (var i = 0; i < numRows - 3; i++) { //add any number of road rows
+        for (var i = 0; i < NUM_ROWS - 3; i++) { //add any number of road rows
             rowImages.push('images/stone-block.png');
         }
         rowImages = rowImages.concat(['images/grass-block.png', 'images/grass-block.png']); //2 rows of grass
         ctx.fillStyle = "white";
-        ctx.fillRect(0, 0, col_width * numCols, row_height * numRows);
+        ctx.fillRect(0, 0, COL_WIDTH * NUM_COLS, ROW_HEIGHT * NUM_ROWS);
 
         /* Loop through the number of rows and columns we've defined above
          * and, using the rowImages array, draw the correct image for that
          * portion of the "grid"
          */
-        for (row = 0; row < numRows; row++) {
-            for (col = 0; col < numCols; col++) {
+        for (row = 0; row < NUM_ROWS; row++) {
+            for (col = 0; col < NUM_COLS; col++) {
                 /* The drawImage function of the canvas' context element
                  * requires 3 parameters: the image to draw, the x coordinate
                  * to start drawing and the y coordinate to start drawing.
@@ -130,6 +131,9 @@ var Engine = (function(global) {
             }
         }
         renderEntities();
+        if(player.y < ROW_HEIGHT && player.reachedTheEnd === false){ // reached the top, the first time
+            displayWinState();
+        }
     }
 
     /* This function is called by the render function and is called on each game

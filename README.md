@@ -1,6 +1,8 @@
 frontend-nanodegree-arcade-game
 ===============================
 
-Students should use this rubric: https://www.udacity.com/course/viewer#!/c-ud015/l-3072058665/m-3072588797
+This program does not require any special setup.  To create a server, place the files 
+in a context where static files will be served.
 
-for self-checking their submission.
+Example: GitHub Hosting:
+Push to gh-pages branch then navigate to http://<github_username>.github.io/<repo_name>/
