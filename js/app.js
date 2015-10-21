@@ -129,7 +129,8 @@ for (var i = 0; i < NUM_COLS * NUM_ROWS / 10; i++) {
     allEnemies.push(new Enemy());
 }
 // Place the player object in a variable called player
-var player = new Player();
+var player0 = new Player();
+var snake = [player0, new Player(), new Player(), new Player(), new Player()];
 
 
 // This listens for key presses and sends the keys to your
@@ -141,6 +142,14 @@ document.addEventListener('keydown', function(e) {
         39: 'right',
         40: 'down'
     };
-
-    player.handleInput(allowedKeys[e.keyCode]);
+    snake.forEach(function (player, index) {
+        setTimeout(function() {
+            player.handleInput(allowedKeys[e.keyCode]);
+        }, index * 200); //increasing the delay through the list of player objects
+    });
+    //for(let player of snake){
+    //    setTimeout(function() {
+    //        player.handleInput(allowedKeys[e.keyCode]);
+    //    }, i * 500);
+    //}
 });

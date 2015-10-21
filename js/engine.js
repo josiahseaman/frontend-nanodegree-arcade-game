@@ -92,7 +92,9 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        player.update();
+        snake.forEach(function (player){
+            player.update();
+        })
     }
 
     /* This function initially draws the "game level", it will then call
@@ -131,7 +133,7 @@ var Engine = (function(global) {
             }
         }
         renderEntities();
-        if(player.y < ROW_HEIGHT && player.reachedTheEnd === false){ // reached the top, the first time
+        if(player0.y < ROW_HEIGHT && player0.reachedTheEnd === false){ // reached the top, the first time
             displayWinState();
         }
     }
@@ -147,8 +149,9 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
-
-        player.render();
+        snake.forEach(function(player){
+            player.render();
+        })
     }
 
     /* Go ahead and load all of the images we know we're going to need to
