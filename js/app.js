@@ -49,10 +49,19 @@ Enemy.prototype.render = function() {
 
 
 //The Single player character inherits Mob properties from Enemy
-var Player = function() {
+var Player = function(icon) {
     Enemy.call(this);
     this.reset();
-    this.sprite = 'images/char-cat-girl.png'; //used by render()
+    if(typeof icon === 'undefined'){
+        var icons = ['images/char-boy.png',
+            'images/char-horn-girl.png',
+            'images/char-pink-girl.png',
+            'images/char-princess-girl.png'
+        ];
+        this.sprite = icons[getRandomInt(0, icons.length - 1)];
+    }else{
+        this.sprite = icon; //used by render()
+    }
 };
 Player.prototype = Object.create(Enemy.prototype);
 Player.prototype.constructor = Player;
@@ -83,6 +92,7 @@ Player.prototype.update = function(dt) {
         var enemy = allEnemies[i];
         this.collidesWithEnemy(enemy);
     }
+    this.reachedTheEnd = this.y <= ROW_HEIGHT; // used for checking win state
 };
 
 //Player.prototype.render = function(){ }
@@ -129,9 +139,11 @@ for (var i = 0; i < NUM_COLS * NUM_ROWS / 10; i++) {
     allEnemies.push(new Enemy());
 }
 // Place the player object in a variable called player
-var player0 = new Player();
-var snake = [player0, new Player(), new Player(), new Player(), new Player()];
-
+var player0 = new Player('images/char-cat-girl.png');
+var snake = [player0];
+for(var i = 0; i < 5; ++i){
+    snake.push(new Player());
+}
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
@@ -142,12 +154,16 @@ document.addEventListener('keydown', function(e) {
         39: 'right',
         40: 'down'
     };
+    /* This single incremental delay in the controls is what creates the trailing
+    * after image of friends.  I've been playing Braid and thinking about caching
+    * input and events.  I like time effects.
+    * */
     snake.forEach(function (player, index) {
         setTimeout(function() {
             player.handleInput(allowedKeys[e.keyCode]);
         }, index * 200); //increasing the delay through the list of player objects
     });
-    //for(let player of snake){
+    //for(let player of snake){//ECMA Script 6
     //    setTimeout(function() {
     //        player.handleInput(allowedKeys[e.keyCode]);
     //    }, i * 500);

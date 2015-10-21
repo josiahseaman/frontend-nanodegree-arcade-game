@@ -133,7 +133,7 @@ var Engine = (function(global) {
             }
         }
         renderEntities();
-        if(player0.y < ROW_HEIGHT && player0.reachedTheEnd === false){ // reached the top, the first time
+        if(snake.every(function(element,index,array){return element.reachedTheEnd})){ // reached the top, the first time
             displayWinState();
         }
     }
@@ -149,9 +149,10 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
-        snake.forEach(function(player){
-            player.render();
+        snake.reverse().forEach(function(player){
+            player.render();//reverse order for y stacking
         })
+        snake.reverse();
     }
 
     /* Go ahead and load all of the images we know we're going to need to
@@ -164,7 +165,10 @@ var Engine = (function(global) {
         'images/grass-block.png',
         'images/enemy-bug.png',
         'images/char-boy.png',
-        'images/char-cat-girl.png'
+        'images/char-cat-girl.png',
+        'images/char-horn-girl.png',
+        'images/char-pink-girl.png',
+        'images/char-princess-girl.png'
     ]);
     Resources.onReady(init);
 
