@@ -103,24 +103,30 @@ Player.prototype.handleInput = function(directionString) {
     if (typeof directionString === 'undefined') {
         return;
     }
-    var oldX = this.x;
-    var oldY = this.y;
+    var newPos = {x: this.x, y: this.y};
     var actions = {//this looks cleaner to me than a series of if statements
-        'left': function(player){player.x -= COL_WIDTH;},
-        'up': function(player){player.y -= ROW_HEIGHT;},
-        'right': function(player){player.x += COL_WIDTH;},
-        'down': function(player){player.y += ROW_HEIGHT;}
+        'left': function(player) {newPos.x -= COL_WIDTH;},
+        'up': function(player)   {newPos.y -= ROW_HEIGHT;},
+        'right': function(player){newPos.x += COL_WIDTH;},
+        'down': function(player) {newPos.y += ROW_HEIGHT;}
     };
     actions[directionString](this); //call the appropriate action
     //if anything puts it offscreen, reset the action
-    if (0 > this.x || this.x >= COL_WIDTH * NUM_COLS) {
-        this.x = oldX;
+    if (0 > newPos.x || newPos.x >= COL_WIDTH * NUM_COLS) {
+        newPos.x = this.x;
     }
-    if (0 > this.y || this.y >= ROW_HEIGHT * NUM_ROWS) {
-        this.y = oldY;
+    if (0 > newPos.y || newPos.y >= ROW_HEIGHT * NUM_ROWS) {
+        newPos.y = this.y;
     }
-
+    for(var i = 0; i < snake.length; i++){
+        if(snake[i] != this && snake[i].x == newPos.x && snake[i].y == newPos.y){
+            return;
+        }
+    }
+    this.x = newPos.x;
+    this.y = newPos.y;
 };
+
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
